@@ -49,12 +49,14 @@ async def chat_with_groq(prompt: dict):
 
 @app.get("/")
 async def read_root():
+    print("Hello, World!")
     try:
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS mytest (id INTEGER PRIMARY KEY)")
         cursor.execute("INSERT IGNORE INTO mytest (id) VALUES (1), (2)")
         cursor.execute("SELECT * FROM mytest")
         results = cursor.fetchall()
+        print(results)
         cursor.close()
         return {"message": "Hello, World!", "data": results}
     except Exception as e:
