@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>AI-Powered Insights - EduCare Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .students-icon {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+
+        .accommodations-icon {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .incidents-icon {
+            background: #fed7aa;
+            color: #f59e0b;
+        }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-content p {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Section Cards */
+        .insights-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            text-align: center;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        /* Accommodation Effectiveness */
+        .effectiveness-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .effectiveness-column h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .most-effective h4 {
+            color: #16a34a;
+        }
+
+        .needs-improvement h4 {
+            color: #dc2626;
+        }
+
+        .effectiveness-item {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .effective-item {
+            border-left-color: #16a34a;
+        }
+
+        .improvement-item {
+            border-left-color: #dc2626;
+        }
+
+        .effectiveness-item h5 {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .success-rate {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .success-high {
+            color: #16a34a;
+        }
+
+        .success-low {
+            color: #dc2626;
+        }
+
+        /* Behavior Patterns */
+        .pattern-insight {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .pattern-text {
+            color: #475569;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .key-finding {
+            background: #dbeafe;
+            border: 1px solid #93c5fd;
+            border-radius: 6px;
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .finding-text {
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        .finding-badge {
+            background: #3b82f6;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* AI Recommendations */
+        .recommendation-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .student-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .recommendation-content {
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .confidence-badge {
+            background: #16a34a;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        /* IEP Meeting Preparation */
+        .meeting-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .meeting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .student-info h3 {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .period-info {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .meeting-status {
+            background: #3b82f6;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .discussion-points h4 {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.75rem;
+        }
+
+        .discussion-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .discussion-points li {
+            color: #475569;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .discussion-points li::before {
+            content: "•";
+            color: #3b82f6;
+            font-weight: bold;
+            position: absolute;
+            left: 0.5rem;
+        }
+
+        .meeting-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .view-details-btn {
+            background: transparent;
+            border: 2px solid #e2e8f0;
+            color: #64748b;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .view-details-btn:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .generate-report-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .generate-report-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .effectiveness-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .meeting-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .meeting-actions {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span>🎓</span>
+            <span>EduCare Tracker</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-item">Dashboard</a>
+            <a href="student.html" class="nav-item">Student Profile</a>
+            <a href="report.html" class="nav-item">Reports</a>
+            <a href="insight.html" class="nav-item active">Insights</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">AI-Powered Student Insights</h1>
+            <p class="page-subtitle">Comprehensive analytics and recommendations for IEP and 504 plan management</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon students-icon">👥</div>
+                <div class="stat-content">
+                    <h3>24</h3>
+                    <p>Total Students</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon accommodations-icon">⚙️</div>
+                <div class="stat-content">
+                    <h3 id="totalAccommodations">42</h3>
+                    <p>Active Accommodations</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon incidents-icon">⚠️</div>
+                <div class="stat-content">
+                    <h3 id="recentIncidents">8</h3>
+                    <p>Recent Incidents</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accommodation Effectiveness Trends -->
+        <div class="insights-section">
+            <h2 class="section-title">[ph]chart-line[/ph] Accommodation Effectiveness Trends</h2>
+            <div class="effectiveness-grid">
+                <div class="effectiveness-column most-effective">
+                    <h4>Most Effective Accommodations</h4>
+                    <div class="effectiveness-item effective-item">
+                        <h5>Extended time</h5>
+                        <span class="success-rate success-high">(85% success rate)</span>
+                    </div>
+                </div>
+                
+                <div class="effectiveness-column needs-improvement">
+                    <h4>Needs Improvement</h4>
+                    <div class="effectiveness-item improvement-item">
+                        <h5>Sensory breaks</h5>
+                        <span class="success-rate success-low">(45% success rate)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Behavior Patterns -->
+        <div class="insights-section">
+            <h2 class="section-title">[ph]brain[/ph] Student Behavior Patterns</h2>
+            <div class="pattern-insight">
+                <div class="pattern-text">
+                    <strong>Expression:</strong> primary_pattern_insight
+                </div>
+                <div class="key-finding">
+                    <span class="finding-text">Students with sensory processing needs require 15% more processing time</span>
+                    <span class="finding-badge">Key Finding</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI-Generated Recommendations -->
+        <div class="insights-section">
+            <h2 class="section-title">[ph]lightbulb[/ph] AI-Generated Recommendations</h2>
+            <div class="recommendation-item">
+                <div class="recommendation-header">
+                    <div class="student-avatar">SJ</div>
+                    <span class="student-name">Sarah Johnson</span>
+                </div>
+                <div class="recommendation-content">
+                    <strong>Expression:</strong> recommendation_text
+                </div>
+                <span class="confidence-badge" id="confidenceScore">92% Confidence</span>
+            </div>
+        </div>
+
+        <!-- IEP Meeting Preparation -->
+        <div class="insights-section">
+            <h2 class="section-title">[ph]users[/ph] IEP Meeting Preparation</h2>
+            <div class="meeting-item">
+                <div class="meeting-header">
+                    <div class="student-info">
+                        <h3>Michael Chen</h3>
+                        <p class="period-info">3rd Period</p>
+                    </div>
+                    <span class="meeting-status" id="meetingStatus">Scheduled</span>
+                </div>
+                
+                <div class="discussion-points">
+                    <h4>Key Discussion Points:</h4>
+                    <ul>
+                        <li><strong>Expression:</strong> primary_discussion_point</li>
+                        <li><strong>Expression:</strong> secondary_discussion_point</li>
+                    </ul>
+                </div>
+                
+                <div class="meeting-actions">
+                    <button class="view-details-btn" onclick="viewMeetingDetails()">View Details</button>
+                    <button class="generate-report-btn" onclick="generateMeetingReport()">Generate Report</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Dynamic data updates based on current analytics
+        function updateInsightsData() {
+            // In a real app, this would fetch from an AI analytics API
+            const data = {
+                totalAccommodations: Math.floor(Math.random() * 20) + 35,
+                recentIncidents: Math.floor(Math.random() * 5) + 5,
+                confidenceScore: Math.floor(Math.random() * 20) + 80,
+                meetingStatus: ['Scheduled', 'In Progress', 'Completed'][Math.floor(Math.random() * 3)]
+            };
+            
+            document.getElementById('totalAccommodations').textContent = data.totalAccommodations;
+            document.getElementById('recentIncidents').textContent = data.recentIncidents;
+            document.getElementById('confidenceScore').textContent = `${data.confidenceScore}% Confidence`;
+            document.getElementById('meetingStatus').textContent = data.meetingStatus;
+        }
+
+        // Meeting Details
+        function viewMeetingDetails() {
+            alert('Opening detailed IEP meeting preparation view...\n\nThis would show:\n• Student progress data\n• Accommodation effectiveness\n• Behavioral patterns\n• Recommended goals\n• Parent/teacher notes');
+        }
+
+        // Generate Meeting Report
+        function generateMeetingReport() {
+            alert('Generating comprehensive IEP meeting report...\n\nThis would create:\n• Executive summary\n• Data visualizations\n• Progress tracking\n• Action items\n• Downloadable PDF');
+        }
+
+        // Get current student context from previous pages
+        function getCurrentStudent() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('student') || localStorage.getItem('currentStudent');
+        }
+
+        // Initialize insights page
+        function initializeInsights() {
+            updateInsightsData();
+            
+            // Update page context based on current student if available
+            const currentStudent = getCurrentStudent();
+            if (currentStudent) {
+                console.log('Showing insights for student:', currentStudent);
+                // In a real app, filter insights based on selected student
+            }
+        }
+
+        // Auto-refresh insights every 30 seconds (simulating real-time AI analysis)
+        setInterval(updateInsightsData, 30000);
+
+        // Initialize page
+        window.onload = initializeInsights;
+    </script>
+</body>
+</html>

@@ -24,20 +24,407 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Reamark Able</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Class Selection */
+        .class-selection {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .class-selection h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .dropdown {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .dropdown:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Students Section */
+        .students-section {
+            margin-top: 2rem;
+        }
+
+        .students-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .students-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .add-student-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .add-student-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Student Cards Grid */
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .student-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .student-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+
+        .student-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .student-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .student-badges {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-iep {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .badge-504 {
+            background: #10b981;
+            color: white;
+        }
+
+        .accommodations-list {
+            margin: 1rem 0;
+        }
+
+        .accommodation-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: #64748b;
+        }
+
+        .accommodation-icon {
+            font-size: 1.1rem;
+        }
+
+        .view-profile-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: transparent;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-profile-btn:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #94a3b8;
+        }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span>🎓</span>
+            <span>EduCare Tracker</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active">Dashboard</a>
+            <a href="#" class="nav-item">Student Profile</a>
+            <a href="#" class="nav-item">Reports</a>
+            <a href="#" class="nav-item">Insights</a>
+        </nav>
+    </header>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h1 class="welcome-title">Welcome to Your Dashboard</h1>
+            <p class="welcome-subtitle">
+                Select your class period to view and manage students with IEP and 504 plans. Monitor accommodations, track progress, and maintain detailed records for each student.
+            </p>
+        </section>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+        <!-- Class Selection -->
+        <section class="class-selection">
+            <h3>Select Class Period</h3>
+            <select class="dropdown" id="classPeriod" onchange="loadStudents()">
+                <option value="">Choose a class period...</option>
+                <option value="1st">1st Period</option>
+                <option value="2nd">2nd Period</option>
+                <option value="3rd">3rd Period</option>
+                <option value="4th">4th Period</option>
+                <option value="5th">5th Period</option>
+                <option value="6th">6th Period</option>
+            </select>
+        </section>
+
+        <!-- Students Section -->
+        <section class="students-section">
+            <div class="students-header">
+                <h2 class="students-title">Students in Selected Class</h2>
+                <button class="add-student-btn" onclick="addNewStudent()">
+                    <span>+</span>
+                    <span>Add New Student</span>
+                </button>
+            </div>
+
+            <div id="studentsContainer" class="empty-state">
+                <p>Select a class period to view students</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Sample student data
+        const studentsData = {
+            "1st": [
+                {
+                    name: "Pedro Martinez",
+                    iep: true,
+                    plan504: false,
+                    accommodations: [
+                        { icon: "🧠", text: "Sensory processing issues" },
+                        { icon: "⏰", text: "Extended time needed" },
+                        { icon: "📝", text: "Testing accommodations" }
+                    ]
+                },
+                {
+                    name: "Fernanda Rodriguez",
+                    iep: false,
+                    plan504: true,
+                    accommodations: [
+                        { icon: "👂", text: "Hearing accommodation" },
+                        { icon: "📖", text: "Text-to-speech tools" },
+                        { icon: "🪑", text: "Preferential seating" }
+                    ]
+                }
+            ],
+            "2nd": [
+                {
+                    name: "Aisha Thompson",
+                    iep: true,
+                    plan504: false,
+                    accommodations: [
+                        { icon: "🧠", text: "Processing disorder support" },
+                        { icon: "⏰", text: "Break intervals needed" },
+                        { icon: "📝", text: "Modified assignments" }
+                    ]
+                },
+                {
+                    name: "Olivia Chen",
+                    iep: true,
+                    plan504: true,
+                    accommodations: [
+                        { icon: "🧠", text: "Sensory processing issues" },
+                        { icon: "⏰", text: "Extended time needed" },
+                        { icon: "📝", text: "Testing accommodations" }
+                    ]
+                }
+            ]
+        };
+
+        function loadStudents() {
+            const classPeriod = document.getElementById('classPeriod').value;
+            const container = document.getElementById('studentsContainer');
+            
+            if (!classPeriod) {
+                container.innerHTML = '<p class="empty-state">Select a class period to view students</p>';
+                return;
+            }
+
+            const students = studentsData[classPeriod] || [];
+            
+            if (students.length === 0) {
+                container.innerHTML = '<p class="empty-state">No students found for this class period</p>';
+                return;
+            }
+
+            container.className = 'students-grid';
+            container.innerHTML = students.map(student => `
+                <div class="student-card" onclick="viewStudentProfile('${student.name}')">
+                    <div class="student-header">
+                        <h3 class="student-name">${student.name}</h3>
+                        <div class="student-badges">
+                            ${student.iep ? '<span class="badge badge-iep">IEP</span>' : ''}
+                            ${student.plan504 ? '<span class="badge badge-504">504</span>' : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="accommodations-list">
+                        ${student.accommodations.map(acc => `
+                            <div class="accommodation-item">
+                                <span class="accommodation-icon">${acc.icon}</span>
+                                <span>${acc.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <button class="view-profile-btn">View Full Profile</button>
+                </div>
+            `).join('');
+        }
+
+        function viewStudentProfile(studentName) {
+            // Navigate to Page 2: Student Profile
+            alert(`Navigating to ${studentName}'s profile (Page 2)`);
+            // In a real app: window.location.href = 'student-profile.html?student=' + studentName;
+        }
+
+        function addNewStudent() {
+            alert('Add New Student functionality');
+            // In a real app: open modal or navigate to add student form
+        }
+    </script>
   </body>
 </html>

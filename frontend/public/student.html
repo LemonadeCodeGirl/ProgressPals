@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Student Profile -  Tracker</title>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .back-btn {
+            background: #64748b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #475569;
+        }
+
+        /* Layout Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        /* Student Information */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        .info-value {
+            color: #1e293b;
+        }
+
+        .status-active {
+            color: #059669;
+            font-weight: 500;
+        }
+
+        .status-inactive {
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        /* Accommodation Details */
+        .accommodation-item {
+            background: #f1f5f9;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+        }
+
+        .accommodation-label {
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 0.25rem;
+        }
+
+        .accommodation-text {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Plan Details */
+        .plan-search {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .plan-search:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Notes Section */
+        .notes-section {
+            grid-column: 1 / -1;
+        }
+
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .add-note-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .add-note-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Note Items */
+        .note-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .note-category {
+            background: #3b82f6;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .note-date {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .note-content {
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        /* Add Note Form (Page 2b) */
+        .add-note-form {
+            background: white;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .add-note-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .save-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .cancel-btn {
+            background: #6b7280;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .save-btn:hover {
+            background: #2563eb;
+        }
+
+        .cancel-btn:hover {
+            background: #4b5563;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span>🎓</span>
+            <span>EduCare Tracker</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="home.html" class="nav-item">Dashboard</a>
+            <a href="#" class="nav-item active">Student Profile</a>
+            <a href="reports.html" class="nav-item">Reports</a>
+            <a href="insights.html" class="nav-item">Insights</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title" id="studentTitle">Expression: student.name</h1>
+            <a href="index.html" class="back-btn">
+                <span>←</span>
+                <span>Back to Dashboard</span>
+            </a>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Student Information -->
+            <div class="card">
+                <h2 class="card-title">Student Information</h2>
+                <div class="info-row">
+                    <span class="info-label">Class Period:</span>
+                    <span class="info-value" id="classPeriod">3rd</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">IEP Status:</span>
+                    <span class="info-value status-active" id="iepStatus">✓ Active IEP</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">504 Plan:</span>
+                    <span class="info-value status-inactive" id="plan504Status">✗ No 504 Plan</span>
+                </div>
+            </div>
+
+            <!-- Accommodation Details -->
+            <div class="card">
+                <h2 class="card-title">Accommodation Details</h2>
+                <div class="accommodation-item">
+                    <div class="accommodation-label">Sensory Issues:</div>
+                    <div class="accommodation-text" id="sensoryIssues">Sensitive to loud noises and bright lights</div>
+                </div>
+                <div class="accommodation-item">
+                    <div class="accommodation-label">Processing Time Needs:</div>
+                    <div class="accommodation-text" id="processingTime">Extended time for tests and assignments (1.5x)</div>
+                </div>
+                <div class="accommodation-item">
+                    <div class="accommodation-label">Accommodation Type:</div>
+                    <div class="accommodation-text" id="accommodationType">Expression: student.accommodation_type</div>
+                </div>
+            </div>
+
+            <!-- Plan Details -->
+            <div class="card">
+                <h2 class="card-title">Plan Details</h2>
+                <input type="text" class="plan-search" placeholder="Search for Students first item % plan_details" readonly>
+            </div>
+
+            <!-- Student Notes (Page 2b) -->
+            <div class="card notes-section">
+                <div class="notes-header">
+                    <h2 class="card-title">Student Notes</h2>
+                    <button class="add-note-btn" onclick="toggleAddNoteForm()">Add New Note</button>
+                </div>
+
+                <!-- Existing Notes -->
+                <div id="notesList">
+                    <div class="note-item">
+                        <div class="note-header">
+                            <span class="note-category">Accommodation</span>
+                            <span class="note-date">March 15, 2025</span>
+                        </div>
+                        <div class="note-content">
+                            Student successfully used noise-canceling headphones during the math test today. Completed the assessment with confidence and minimal distractions.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Note Form (2b) -->
+                <div id="addNoteForm" class="add-note-form">
+                    <h3 class="card-title">Add Student Note</h3>
+                    <form onsubmit="saveNote(event)">
+                        <div class="form-group">
+                            <label class="form-label">Note Type</label>
+                            <select class="form-select" id="noteType" required>
+                                <option value="">Select note type...</option>
+                                <option value="Accommodation">Accommodation</option>
+                                <option value="Behavioral">Behavioral</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Medical">Medical</option>
+                                <option value="Progress">Progress</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Note Content</label>
+                            <textarea class="form-textarea" id="noteContent" placeholder="Enter detailed notes about the student..." required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn" onclick="toggleAddNoteForm()">Cancel</button>
+                            <button type="submit" class="save-btn">Save Note</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Get student data from URL parameters
+        function getStudentFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentName = urlParams.get('student');
+            if (studentName) {
+                document.getElementById('studentTitle').textContent = studentName;
+                loadStudentData(studentName);
+            }
+        }
+
+        // Sample student data (in a real app, this would come from a database)
+        const studentData = {
+            "Pedro Martinez": {
+                classPeriod: "1st Period",
+                iep: true,
+                plan504: false,
+                sensoryIssues: "Sensitive to loud noises and sudden movements",
+                processingTime: "Extended time for tests and assignments (2x)",
+                accommodationType: "Sensory processing support with quiet environment"
+            },
+            "Fernanda Rodriguez": {
+                classPeriod: "1st Period", 
+                iep: false,
+                plan504: true,
+                sensoryIssues: "Hearing accommodation needed",
+                processingTime: "Standard time with audio support",
+                accommodationType: "Text-to-speech and hearing assistance"
+            },
+            "Aisha Thompson": {
+                classPeriod: "2nd Period",
+                iep: true,
+                plan504: false,
+                sensoryIssues: "Processing disorder - needs structured environment",
+                processingTime: "Break intervals every 30 minutes",
+                accommodationType: "Cognitive processing support"
+            },
+            "Olivia Chen": {
+                classPeriod: "2nd Period",
+                iep: true,
+                plan504: true,
+                sensoryIssues: "Sensitive to loud noises and bright lights",
+                processingTime: "Extended time for tests and assignments (1.5x)",
+                accommodationType: "Multi-sensory accommodations"
+            }
+        };
+
+        function loadStudentData(studentName) {
+            const student = studentData[studentName];
+            if (student) {
+                document.getElementById('classPeriod').textContent = student.classPeriod;
+                document.getElementById('iepStatus').textContent = student.iep ? "✓ Active IEP" : "✗ No IEP";
+                document.getElementById('iepStatus').className = student.iep ? "info-value status-active" : "info-value status-inactive";
+                document.getElementById('plan504Status').textContent = student.plan504 ? "✓ Active 504 Plan" : "✗ No 504 Plan";
+                document.getElementById('plan504Status').className = student.plan504 ? "info-value status-active" : "info-value status-inactive";
+                document.getElementById('sensoryIssues').textContent = student.sensoryIssues;
+                document.getElementById('processingTime').textContent = student.processingTime;
+                document.getElementById('accommodationType').textContent = student.accommodationType;
+            }
+        }
+
+        function toggleAddNoteForm() {
+            const form = document.getElementById('addNoteForm');
+            form.classList.toggle('active');
+            if (form.classList.contains('active')) {
+                document.getElementById('noteContent').focus();
+            }
+        }
+
+        function saveNote(event) {
+            event.preventDefault();
+            const noteType = document.getElementById('noteType').value;
+            const noteContent = document.getElementById('noteContent').value;
+            
+            if (!noteType || !noteContent.trim()) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Create new note element
+            const notesList = document.getElementById('notesList');
+            const newNote = document.createElement('div');
+            newNote.className = 'note-item';
+            newNote.innerHTML = `
+                <div class="note-header">
+                    <span class="note-category">${noteType}</span>
+                    <span class="note-date">${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+                <div class="note-content">${noteContent}</div>
+            `;
+            
+            notesList.insertBefore(newNote, notesList.firstChild);
+            
+            // Reset form and hide it
+            document.getElementById('noteType').value = '';
+            document.getElementById('noteContent').value = '';
+            toggleAddNoteForm();
+            
+            alert('Note saved successfully!');
+        }
+
+        // Load student data when page loads
+        window.onload = getStudentFromUrl;
+    </script>
+</body>
+</html>

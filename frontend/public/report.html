@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Student Profile -  Tracker</title>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Student Reports - EduCare Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .add-note-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .add-note-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Reports Grid */
+        .reports-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Report Sections */
+        .report-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .warning-icon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .clock-icon {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        /* Report Items */
+        .report-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .report-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .student-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .report-date {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .report-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .behavioral-tag {
+            background: #fed7aa;
+            color: #ea580c;
+        }
+
+        .extended-time-tag {
+            background: #bbf7d0;
+            color: #16a34a;
+        }
+
+        .report-description {
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .accommodation-note {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        /* Add Note Form (Page 3b) */
+        .add-note-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .add-note-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+            padding: 0.25rem;
+        }
+
+        .close-btn:hover {
+            color: #374151;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-select:focus, .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .save-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .cancel-btn {
+            background: #6b7280;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .save-btn:hover {
+            background: #2563eb;
+        }
+
+        .cancel-btn:hover {
+            background: #4b5563;
+        }
+
+        /* Back Navigation */
+        .back-nav {
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            color: #3b82f6;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .reports-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                width: calc(100% - 2rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span>🎓</span>
+            <span>EduCare Tracker</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="home.html" class="nav-item">Dashboard</a>
+            <a href="student.html" class="nav-item">Student Profile</a>
+            <a href="reports.html" class="nav-item active">Reports</a>
+            <a href="insights.html" class="nav-item">Insights</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Back Navigation -->
+        <div class="back-nav">
+            <a href="student.html" class="back-link" id="backToStudent">
+                <span>←</span>
+                <span>Back to Student Profile</span>
+            </a>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Student Reports & Documentation</h1>
+            <button class="add-note-btn" onclick="openAddNoteModal()">
+                <span>+</span>
+                <span>Add Note</span>
+            </button>
+        </div>
+
+        <!-- Reports Grid -->
+        <div class="reports-grid">
+            <!-- Incident Reports Section -->
+            <div class="report-section">
+                <div class="section-header">
+                    <div class="section-icon warning-icon">⚠</div>
+                    <h2 class="section-title">Incident Reports</h2>
+                </div>
+
+                <div class="report-item" onclick="viewReportDetails('incident1')">
+                    <div class="report-header">
+                        <h3 class="student-name">Sarah Johnson</h3>
+                        <span class="report-date">2024-03-15</span>
+                    </div>
+                    <div class="report-type behavioral-tag">Behavioral</div>
+                    <p class="report-description">
+                        Student became overwhelmed during group work and needed sensory break
+                    </p>
+                    <div class="accommodation-note">
+                        <strong>Accommodations Used:</strong> Parent group's IncidentReport's accommodations_used
+                    </div>
+                </div>
+
+                <div class="report-item" onclick="viewReportDetails('incident2')">
+                    <div class="report-header">
+                        <h3 class="student-name" id="currentStudentIncident">Olivia Chen</h3>
+                        <span class="report-date">2024-03-12</span>
+                    </div>
+                    <div class="report-type behavioral-tag">Behavioral</div>
+                    <p class="report-description">
+                        Noise sensitivity triggered during fire drill. Student used noise-canceling headphones successfully.
+                    </p>
+                    <div class="accommodation-note">
+                        <strong>Accommodations Used:</strong> Noise-canceling headphones, quiet space
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accommodation History Section -->
+            <div class="report-section">
+                <div class="section-header">
+                    <div class="section-icon clock-icon">🕒</div>
+                    <h2 class="section-title">Accommodation History</h2>
+                </div>
+
+                <div class="report-item" onclick="viewReportDetails('accommodation1')">
+                    <div class="report-header">
+                        <h3 class="student-name">Michael Chen</h3>
+                        <span class="report-date">2024-03-10</span>
+                    </div>
+                    <div class="report-type extended-time-tag">Extended Time</div>
+                    <div style="color: #7c3aed; font-weight: 500; margin-bottom: 0.75rem;">Highly Effective</div>
+                    <p class="report-description">
+                        Student completed assessment with 50% additional time, showed improved performance
+                    </p>
+                </div>
+
+                <div class="report-item" onclick="viewReportDetails('accommodation2')">
+                    <div class="report-header">
+                        <h3 class="student-name" id="currentStudentAccommodation">Olivia Chen</h3>
+                        <span class="report-date">2024-03-08</span>
+                    </div>
+                    <div class="report-type extended-time-tag">Sensory Support</div>
+                    <div style="color: #16a34a; font-weight: 500; margin-bottom: 0.75rem;">Effective</div>
+                    <p class="report-description">
+                        Used preferred seating and reduced lighting during test. Student completed without distraction.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Note Modal (Page 3b) -->
+    <div id="addNoteModal" class="add-note-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Report Note</h2>
+                <button class="close-btn" onclick="closeAddNoteModal()">×</button>
+            </div>
+            
+            <form onsubmit="saveReportNote(event)">
+                <div class="form-group">
+                    <label class="form-label">Student Name</label>
+                    <select class="form-select" id="studentSelect" required>
+                        <option value="">Select student...</option>
+                        <option value="Pedro Martinez">Pedro Martinez</option>
+                        <option value="Fernanda Rodriguez">Fernanda Rodriguez</option>
+                        <option value="Aisha Thompson">Aisha Thompson</option>
+                        <option value="Olivia Chen">Olivia Chen</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Report Type</label>
+                    <select class="form-select" id="reportType" required>
+                        <option value="">Select report type...</option>
+                        <option value="Incident">Incident Report</option>
+                        <option value="Accommodation">Accommodation Success</option>
+                        <option value="Behavioral">Behavioral Observation</option>
+                        <option value="Academic">Academic Progress</option>
+                        <option value="Medical">Medical/Health Note</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="reportDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Report Description</label>
+                    <textarea class="form-textarea" id="reportDescription" placeholder="Describe the incident, accommodation use, or observation in detail..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Accommodations Used (if applicable)</label>
+                    <textarea class="form-textarea" id="accommodationsUsed" placeholder="List any accommodations that were used during this incident or situation..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeAddNoteModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Save Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get current student from URL or localStorage
+        function getCurrentStudent() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const student = urlParams.get('student') || localStorage.getItem('currentStudent') || 'Olivia Chen';
+            
+            // Update student names in reports to match current student
+            const incidentStudent = document.getElementById('currentStudentIncident');
+            const accommodationStudent = document.getElementById('currentStudentAccommodation');
+            
+            if (incidentStudent) incidentStudent.textContent = student;
+            if (accommodationStudent) accommodationStudent.textContent = student;
+            
+            // Update back link
+            const backLink = document.getElementById('backToStudent');
+            if (student !== 'Olivia Chen') {
+                backLink.href = `student.html?student=${encodeURIComponent(student)}`;
+            }
+            
+            return student;
+        }
+
+        // Open Add Note Modal (Page 3b)
+        function openAddNoteModal() {
+            const modal = document.getElementById('addNoteModal');
+            modal.classList.add('active');
+            
+            // Pre-select current student
+            const currentStudent = getCurrentStudent();
+            const studentSelect = document.getElementById('studentSelect');
+            if (studentSelect) {
+                studentSelect.value = currentStudent;
+            }
+            
+            // Set today's date
+            const dateInput = document.getElementById('reportDate');
+            if (dateInput) {
+                dateInput.value = new Date().toISOString().split('T')[0];
+            }
+        }
+
+        // Close Add Note Modal
+        function closeAddNoteModal() {
+            const modal = document.getElementById('addNoteModal');
+            modal.classList.remove('active');
+            
+            // Reset form
+            const form = modal.querySelector('form');
+            if (form) form.reset();
+        }
+
+        // Save Report Note
+        function saveReportNote(event) {
+            event.preventDefault();
+            
+            const studentName = document.getElementById('studentSelect').value;
+            const reportType = document.getElementById('reportType').value;
+            const reportDate = document.getElementById('reportDate').value;
+            const reportDescription = document.getElementById('reportDescription').value;
+            const accommodationsUsed = document.getElementById('accommodationsUsed').value;
+            
+            if (!studentName || !reportType || !reportDate || !reportDescription.trim()) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // In a real app, this would save to a database
+            console.log('Saving report:', {
+                student: studentName,
+                type: reportType,
+                date: reportDate,
+                description: reportDescription,
+                accommodations: accommodationsUsed
+            });
+            
+            alert('Report saved successfully!');
+            closeAddNoteModal();
+            
+            // Refresh the page to show new report (in a real app, you'd dynamically add it)
+            // location.reload();
+        }
+
+        // View Report Details
+        function viewReportDetails(reportId) {
+            // In a real app, this would open a detailed view modal or navigate to a detail page
+            console.log('Viewing report details for:', reportId);
+            alert('Report details view - would open detailed information about this report');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('addNoteModal');
+            if (event.target === modal) {
+                closeAddNoteModal();
+            }
+        }
+
+        // Initialize page
+        window.onload = function() {
+            getCurrentStudent();
+        };
+    </script>
+</body>
+</html>
